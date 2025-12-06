@@ -1,7 +1,7 @@
-CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I$(MLX_DIR)
+CC = cc -g
+CFLAGS = -Wall -Wextra -Werror -I$(MLX_DIR)
 
-SRCS = ./main.c
+SRCS = ./matrix.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -10,7 +10,7 @@ MLX_LIB = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext
 MAKE = make
 
-NAME = so_long
+NAME = practice
 
 # Main rule
 all: $(NAME)
@@ -21,6 +21,9 @@ $(NAME): $(OBJS) $(MLX_LIB)
 
 $(MLX_LIB):
 	$(MAKE) -C $(MLX_DIR)
+
+ohne:
+	$(CC) $(SRCS) -o $(NAME)
 
 # Rule to compile .c files to .o
 %.o: %.c
@@ -37,4 +40,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: fclean clean re all
+.PHONY: fclean clean re all ohne

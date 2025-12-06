@@ -2,9 +2,9 @@
 
 void print_matrix(int row, int column, int C[row][column])
 {
-	for (size_t i = 0; i < row; i++)
+	for (int i = 0; i < row; i++)
 	{
-		for (size_t j = 0; j < column; j++)
+		for (int j = 0; j < column; j++)
 		{
 			printf("%i ", C[i][j]);
 		}
@@ -12,31 +12,65 @@ void print_matrix(int row, int column, int C[row][column])
 	}
 }
 
-int main(int argc, char const *argv[])
+void multiply_matrixes(int row, int column, int (*C)[column], int A[row][column], int B[row][column])
 {
-	int A[2][2] = {0};
-	int B[2][2] = {0};
-	int C[2][2] = {0};
-	A[0][0] = 1;
-	A[0][1] = 2;
-	A[1][0] = 3;
-	A[1][1] = 4;
-	B[0][0] = 5;
-	B[0][1] = 6;
-	B[1][0] = 7;
-	B[1][1] = 8;
-	for (size_t row = 0; row < 2; row++)
+	for (int i = 0; i < row; i++)
 	{
-		for (size_t column = 0; column < 2; column++)
+		for (int j = 0; j < column; j++)
 		{
-			C[row][column] = A[row][0] * B[0][column] + A[row][1] * B[1][column];
+			for (int k = 0; k < column; k++)
+			{
+				C[i][j] += A[i][k] * B[k][j];
+			}
 		}
 	}
+}
+
+void swap(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void transpose_matrix(int row, int column, int (*C)[column])
+{
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = i; j < column; j++)
+		{
+			swap(&C[i][j], &C[j][i]);	
+		}
+	}
+}
+
+int main(int argc, char const *argv[])
+{
+	int A[4][4] = {
+		{0, 1, 2, 4},
+		{-1, 2, 4, 8},
+		{-2, -4, 8, 16},
+		{-4, -8, -16, 32}
+	};
+	int B[3][1] = {{0}, {-1}, {-2}};
+	int identity_matrix[4][4] = {0};
+	identity_matrix[0][0] = 1;
+	identity_matrix[1][1] = 1;
+	identity_matrix[2][2] = 1;
+	identity_matrix[3][3] = 1;
+	int C[4][4] = {0};
+	
+	multiply_matrixes(4, 4, C, A, identity_matrix);
 	printf("====================== A matrix ===============\n");
-	print_matrix(2, 2, A);
+	print_matrix(4, 4, A);
 	printf("====================== B matrix ===============\n");
-	print_matrix(2, 2, B);
+	print_matrix(4, 4, identity_matrix);
 	printf("====================== C matrix ===============\n");
-	print_matrix(2, 2, C);
+	print_matrix(4, 4, C);
+	printf("====================== A matrix t ===============\n");
+	transpose_matrix(4, 4, A);
+	print_matrix(4, 4, A);
 	return (0);
 }

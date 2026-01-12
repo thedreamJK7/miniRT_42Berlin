@@ -73,10 +73,10 @@ The basic ray tracing algorithm works as follows:
 
 ```bash
 # Clone the project
-git clone https://github.com/yingzhan25/miniRT_42.git
+git clone https://github.com/thedreamJK7/miniRT_42Berlin.git
 
 # Navigate to the project directory
-cd miniRT_42
+cd miniRT_42Berlin
 ```
 
 ### Installation on Linux
